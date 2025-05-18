@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
  * Feeldee\Tracking\Facades\Tracking
  *
  * @method static void start()
- * @method static string uid()
+ * @method static string|null uid()
  */
 class Tracking extends Facade
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Feeldee\Tracking\Http\Middleware;
 
 use Feeldee\Tracking\Facades\Tracking;
 use Closure;

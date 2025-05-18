@@ -5,7 +5,7 @@ namespace Feeldee\Tracking;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\ServiceProvider;
 
-class TideTrackingServiceProvider extends ServiceProvider
+class TrackingServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -13,8 +13,8 @@ class TideTrackingServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/tacking.php',
-            'tacking'
+            __DIR__ . '/../config/tracking.php',
+            'tracking'
         );
     }
 
@@ -39,7 +39,7 @@ class TideTrackingServiceProvider extends ServiceProvider
     {
         // 追加設定
         $this->publishes([
-            __DIR__ . '/../config/tacking.php' => config_path('tacking.php'),
+            __DIR__ . '/../config/tracking.php' => config_path('tracking.php'),
         ]);
 
         // 追加マイグレーション
@@ -47,5 +47,9 @@ class TideTrackingServiceProvider extends ServiceProvider
 
         // 追加情報
         AboutCommand::add('Feeldee', fn() => ['Tracking Version' => '1.0.0']);
+
+        // 追加ミドルウェア
+        $router = $this->app['router'];
+        $router->aliasMiddleware('tracking', \Feeldee\Tracking\Http\Middleware\TrackingRequests::class);
     }
 }

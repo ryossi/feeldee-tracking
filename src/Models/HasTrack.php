@@ -1,6 +1,6 @@
 <?php
 
-namespace Feeldee\Framework\Models;
+namespace Feeldee\Tracking\Models;
 
 use Feeldee\Tracking\Facades\Tracking;
 use Illuminate\Database\Eloquent\Model;

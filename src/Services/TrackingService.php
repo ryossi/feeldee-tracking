@@ -2,7 +2,7 @@
 
 namespace Feeldee\Tracking\Services;
 
-use Feeldee\Framework\Models\Track;
+use Feeldee\Tracking\Models\Track;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Request;
 
@@ -42,8 +42,10 @@ class TrackingService
 
     /**
      * UIDを返却します。
+     * 
+     * @return string|null UUIDまたはnull
      */
-    public function uid(): ?string
+    public function uid(): string|null
     {
         return config('tracking.enable') ? session(self::KEY) : null;
     }
