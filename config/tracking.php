@@ -1,18 +1,10 @@
 <?php
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | トラッキングサービスに関するコンフィグレーション
-    |--------------------------------------------------------------------------
-    |
-    */
-    'tracking' => [
-        // トラッキング有効フラグ（true:有効、false:無効）
-        'enable' => env('TRACKING', true),
-        // トラッキング継続期間（分）
-        'lifetime' => env('TRACKING_LIFETIME', 43200),
-        // トラッキング自動延長（true:延長あり、false:延長なし）
-        'continuation' => env('TRACKING_CONTINUATION', false),
-    ],
+    // トラッキング有効フラグ（true:有効、false:無効）
+    'enable' => env('TRACKING', true),
+    // トラッキング継続期間（分）
+    'lifetime' => env('TRACKING_LIFETIME', 43200),
+    // トラッキング自動延長（true:延長あり、false:延長なし）
+    'continuation' => env('TRACKING_CONTINUATION', false),
 ];
