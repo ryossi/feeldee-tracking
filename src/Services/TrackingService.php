@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Request;
 
 class TrackingService
 {
-    const KEY = 'feeldee_tracking_uid';
+    const SESSION_KEY = 'feeldee_tracking_uid';
 
     /**
      * トラッキングを開始します。
@@ -16,7 +16,7 @@ class TrackingService
     public function start(): void
     {
         if (config('tracking.enable')) {
-            $track = Track::find(request()->cookie(self::KEY));
+            $track = Track::find(request()->cookie(self::SESSION_KEY));
             if (!$track) {
                 // 追跡情報が存在しない場合
 
@@ -27,16 +27,16 @@ class TrackingService
                     'ip_address' => $ip_address,
                     'user_agent' => $userAgent,
                 ]);
-                Cookie::queue(self::KEY, $track->uid, config('tracking.lifetime'));
+                Cookie::queue(self::SESSION_KEY, $track->uid, config('tracking.lifetime'));
             } else {
                 if (config('tracking.continuation', false)) {
                     // 追跡自動延長
-                    Cookie::queue(self::KEY, $track->uid, config('tracking.lifetime'));
+                    Cookie::queue(self::SESSION_KEY, $track->uid, config('tracking.lifetime'));
                 }
             }
 
             // セッションにUIDを一時保存
-            session()->flash(self::KEY, $track->uid);
+            session()->flash(self::SESSION_KEY, $track->uid);
         }
     }
 
@@ -47,6 +47,6 @@ class TrackingService
      */
     public function uid(): string|null
     {
-        return config('tracking.enable') ? session(self::KEY) : null;
+        return config('tracking.enable') ? session(self::SESSION_KEY) : null;
     }
 }
