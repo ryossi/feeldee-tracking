@@ -3,11 +3,9 @@
 namespace Tests\Feature;
 
 use Feeldee\Tracking\Services\TrackingService;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Cookie;
 
 class TrackingTest extends TestCase
 {

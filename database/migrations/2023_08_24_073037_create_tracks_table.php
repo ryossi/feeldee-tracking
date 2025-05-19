@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tracks', function (Blueprint $table) {
-            $table->string('uid')->primary()->comment('UID');
+            $table->string('uid')->primary()->comment('トラッキングUID');
             $table->string('ip_address', 15)->comment('IPアドレス');
             $table->text('user_agent')->comment('ユーザエージェント');
             $table->timestamps();
