@@ -1,6 +1,6 @@
 # Feeldee Tracking
 
-feeldee-trackingは、[Feeldee Framework](https://github.com/ryossi/feeldee-framework)にアクセスカウンター、コンテンツ閲覧履歴などの追跡システムを追加するためのLaravelパッケージです。
+feeldee-trackingは、[Feeldee Framework](https://github.com/ryossi/feeldee-framework)ベースのアプリケーションにトラッキング、コンテンツ閲覧履歴などの追跡システムを追加するためのLaravelパッケージです。
 
 ## 利用者
 
