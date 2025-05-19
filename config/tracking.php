@@ -1,10 +1,30 @@
 <?php
 
 return [
-    // トラッキング有効フラグ（true:有効、false:無効）
-    'enable' => env('TRACKING', true),
-    // トラッキング継続期間（分）
-    'lifetime' => env('TRACKING_LIFETIME', 43200),
-    // トラッキング自動延長（true:延長あり、false:延長なし）
-    'continuation' => env('TRACKING_CONTINUATION', false),
+    /*
+    |--------------------------------------------------------------------------
+    | トラッキングに関するコンフィグレーション
+    |--------------------------------------------------------------------------
+    |
+    */
+    'tracking' => [
+        // トラッキング有効フラグ（true:有効、false:無効）
+        'enable' => env('TRACKING', true),
+        // トラッキング継続期間（分）
+        'lifetime' => env('TRACKING_LIFETIME', 43200),
+        // トラッキング自動延長（true:延長あり、false:延長なし）
+        'continuation' => env('TRACKING_CONTINUATION', false),
+    ],
+    /*
+    |--------------------------------------------------------------------------
+    | コンテンツ閲覧履歴に関するコンフィグレーション
+    |--------------------------------------------------------------------------
+    |
+    */
+    'content_view_history' => [
+        // コンテンツ閲覧履歴機能有効フラグ（true:有効、false:無効）
+        'enable' => env('CONTENT_VIEW_HISTORY', true),
+        // ルートモデルバインディングのキー
+        'binding_key' => 'contente',
+    ]
 ];

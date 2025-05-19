@@ -52,7 +52,7 @@ class TrackingTest extends TestCase
     public function test_tracking_config_disabled()
     {
         // 準備
-        Config::set('tracking.enable', false);
+        Config::set('tracking.tracking.enable', false);
 
         // 実行
         $response = $this->get('/tracking');
@@ -73,7 +73,7 @@ class TrackingTest extends TestCase
     {
         // 準備
         $lifetime = 60;
-        Config::set('tracking.lifetime', $lifetime);
+        Config::set('tracking.tracking.lifetime', $lifetime);
 
         // 実行
         $response = $this->get('/tracking');

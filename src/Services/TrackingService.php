@@ -15,7 +15,7 @@ class TrackingService
      */
     public function start(): void
     {
-        if (config('tracking.enable')) {
+        if (config('tracking.tracking.enable')) {
             $track = Track::find(request()->cookie(self::SESSION_KEY));
             if (!$track) {
                 // 追跡情報が存在しない場合
@@ -27,11 +27,11 @@ class TrackingService
                     'ip_address' => $ip_address,
                     'user_agent' => $userAgent,
                 ]);
-                Cookie::queue(self::SESSION_KEY, $track->uid, config('tracking.lifetime'));
+                Cookie::queue(self::SESSION_KEY, $track->uid, config('tracking.tracking.lifetime'));
             } else {
-                if (config('tracking.continuation', false)) {
+                if (config('tracking.tracking.continuation', false)) {
                     // 追跡自動延長
-                    Cookie::queue(self::SESSION_KEY, $track->uid, config('tracking.lifetime'));
+                    Cookie::queue(self::SESSION_KEY, $track->uid, config('tracking.tracking.lifetime'));
                 }
             }
 
@@ -47,6 +47,6 @@ class TrackingService
      */
     public function uid(): string|null
     {
-        return config('tracking.enable') ? session(self::SESSION_KEY) : null;
+        return config('tracking.tracking.enable') ? session(self::SESSION_KEY) : null;
     }
 }
