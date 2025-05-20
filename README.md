@@ -31,7 +31,7 @@ feeldee-trackingは、[Feeldee Framework](https://github.com/ryossi/feeldee-fram
 
 1. `cp .env.example .env`で.envをコピーして設定をカスタマイズしてください。
 2. `docker compose up -d`でテストコンテナを起動してください。
-3. `docker exec -it feeldee-framework bash`でテストコンテナに入ります。
+3. `docker exec -it feeldee-tracking bash`でテストコンテナに入ります。
 4. ソースコードの必要な部分にブレイクポイントを設定します。
 5. テストコンテナのコマンドプロンプトで`./vendor/bin/phpunit --testsuite Feature`を実行してください。
 6. 最後に`docker compose down`でテストコンテナを終了します。
