@@ -1,0 +1,4 @@
+providers:
+  - Feeldee\Framework\FeeldeeServiceProvider
+  - Feeldee\Tracking\TrackingServiceProvider
+  - Tests\TrackingTestServiceProvider
