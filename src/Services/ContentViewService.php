@@ -11,16 +11,19 @@ class ContentViewService
     /**
      * コンテンツ閲覧履歴を登録します。
      * 
-     * @return Content $content コンテンツ
+     * @param Content $content コンテンツ
+     * @return ContentViewHistory|false コンテンツ閲覧履歴またはfalse
      */
-    public function regist(Content $content): void
+    public function regist(Content $content): ContentViewHistory|false
     {
         if (config('tracking.content_view_history.enable')) {
             // コンテンツ閲覧履歴を登録
-            ContentViewHistory::create([
+            return ContentViewHistory::create([
                 'content' => $content,
                 'viewed_at' => Carbon::now(),
             ]);
         }
+
+        return false;
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Feeldee\Framework\Facades\ContentView
  *
- * @method static void regist(Content $content)
+ * @method static ContentViewHistory|false regist(Content $content)
  */
 class ContentView extends Facade
 {
