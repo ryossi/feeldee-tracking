@@ -4,6 +4,7 @@ namespace Feeldee\Tracking\Services;
 
 use Feeldee\Framework\Models\Content;
 use Carbon\Carbon;
+use Feeldee\Tracking\Models\ContentViewHistory;
 
 class ContentViewService
 {
@@ -14,6 +15,12 @@ class ContentViewService
      */
     public function regist(Content $content): void
     {
-        $content->viewHistories()->create(['viewed_at' => Carbon::now()]);
+        if (config('tracking.content_view_history.enable')) {
+            // コンテンツ閲覧履歴を登録
+            ContentViewHistory::create([
+                'content' => $content,
+                'viewed_at' => Carbon::now(),
+            ]);
+        }
     }
 }

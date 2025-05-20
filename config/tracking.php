@@ -25,6 +25,6 @@ return [
         // コンテンツ閲覧履歴機能有効フラグ（true:有効、false:無効）
         'enable' => env('CONTENT_VIEW_HISTORY', true),
         // ルートモデルバインディングのキー
-        'binding_key' => 'contente',
+        'binding_key' => 'content',
     ]
 ];

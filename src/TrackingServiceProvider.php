@@ -51,5 +51,6 @@ class TrackingServiceProvider extends ServiceProvider
         // 追加ミドルウェア
         $router = $this->app['router'];
         $router->aliasMiddleware('tracking', \Feeldee\Tracking\Http\Middleware\TrackingRequests::class);
+        $router->aliasMiddleware('history.content_view', \Feeldee\Tracking\Http\Middleware\ContentViewRequests::class);
     }
 }

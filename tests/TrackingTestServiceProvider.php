@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Support\ServiceProvider;
 
 class TrackingTestServiceProvider extends ServiceProvider
@@ -15,6 +14,7 @@ class TrackingTestServiceProvider extends ServiceProvider
         $this->loadRoutesFrom('tests/routes/test.php');
 
         $router = $this->app['router'];
-        $router->aliasMiddleware('queued.cookies', AddQueuedCookiesToResponse::class);
+        $router->aliasMiddleware('queued.cookies', \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class);
+        $router->aliasMiddleware('bindings', \Illuminate\Routing\Middleware\SubstituteBindings::class);
     }
 }
