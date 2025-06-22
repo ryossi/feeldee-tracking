@@ -2,6 +2,7 @@
 
 namespace Feeldee\Tracking;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +16,12 @@ class TrackingServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../config/tracking.php',
             'tracking'
+        );
+
+        // ファサードのエイリアスを登録 
+        AliasLoader::getInstance()->alias(
+            'ContentView',
+            \Feeldee\Tracking\Facades\ContentView::class
         );
     }
 

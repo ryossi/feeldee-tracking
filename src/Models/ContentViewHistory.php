@@ -38,6 +38,18 @@ class ContentViewHistory extends Model
                 unset($model['content']);
             }
         });
+
+        // コンテンツ閲覧集計を登録
+        static::created(function ($model) {
+            $summary = ContentViewSummary::firstOrNew([
+                'profile_id' => $model->profile_id,
+                'content_type' => $model->content_type,
+                'content_id' => $model->content_id,
+                'viewed_date' => $model->viewed_at->format('Y-m-d'),
+            ]);
+            $summary->view_count = ($summary->view_count ?? 0) + 1;
+            $summary->save();
+        });
     }
 
     /**
