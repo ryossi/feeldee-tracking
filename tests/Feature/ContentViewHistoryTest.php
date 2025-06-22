@@ -492,4 +492,39 @@ class ContentViewHistoryTest extends TestCase
         $this->assertEquals(4, $countItem, 'アイテムのコンテンツ閲覧回数合計を集計することができること');
         $this->assertDatabaseCount('content_view_summaries', 4);
     }
+
+    /**
+     * アクセスカウンター
+     * 
+     * - ContentViewファサードのエイリアスが登録されていることを確認します。
+     * - Bladeコンポーネントでアクセスカウンターを表示することができることを確認します。
+     *  
+     * @link https://github.com/ryossi/feeldee-tracking/wiki/コンテンツ閲覧履歴#アクセスカウンター
+     */
+    public function test_access_counter_alias()
+    {
+        // 準備
+        Auth::shouldReceive('id')->andReturn(1);
+        $profie = Profile::create([
+            'nickname' => 'test',
+            'email' => 'test@feeldee.com',
+            'user_id' => 1,
+            'title' => 'Tracking Package',
+        ]);
+        $post = $profie->posts()->create([
+            'title' => 'test',
+            'body' => 'test',
+            'post_date' => now(),
+        ]);
+        ContentView::regist($post);
+
+        // 実行
+        $view = $this->blade(
+            '<span class="badge bg-light text-dark">{{ ContentView::count($profile, "today", "post") }}</span>',
+            ['profile' => $profie]
+        );
+
+        // 評価
+        $view->assertSeeText('1');
+    }
 }
