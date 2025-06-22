@@ -16,6 +16,94 @@ class ContentViewHistoryTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * コンテンツ閲覧集計
+     * 
+     * - コンテンツ閲覧履歴登録毎に登録されることを確認します。
+     * - 一致するコンテンツ閲覧集計が存在しない場合は、新規作成されコンテンツ閲覧回数に1がセットされることを確認します。
+     * 
+     * @link https://github.com/ryossi/feeldee-tracking/wiki/コンテンツ閲覧履歴#コンテンツ閲覧集計
+     */
+    public function test_content_view_summary_new()
+    {
+        // 準備
+        Auth::shouldReceive('id')->andReturn(1);
+        $profie = Profile::create([
+            'nickname' => 'test',
+            'email' => 'test@feeldee.com',
+            'user_id' => 1,
+            'title' => 'Tracking Package',
+        ]);
+        $location = $profie->locations()->create([
+            'title' => 'test',
+            'latitude' => 35.681236,
+            'longitude' => 139.767125,
+            'zoom' => 10,
+        ]);
+
+        // 実行
+        ContentView::regist($location);
+
+        // 評価
+        // ンテンツ閲覧履歴登録毎に登録されること
+        $this->assertDatabaseCount('content_view_summaries', 1);
+        // 一致するコンテンツ閲覧集計が存在しない場合は、新規作成されコンテンツ閲覧回数に1がセットされること
+        $this->assertDatabaseHas('content_view_summaries', [
+            'profile_id' => $profie->id,
+            'content_id' => $location->id,
+            'content_type' => $location->type(),
+            'view_count' => 1,
+        ]);
+    }
+
+    /**
+     * コンテンツ閲覧集計
+     * 
+     * - コンテンツ閲覧履歴登録毎に更新されることを確認します。
+     * - 一致するコンテンツ閲覧集計が存在する場合は、コンテンツ閲覧回数が1つカウントアップされることを確認します。
+     * 
+     * @link https://github.com/ryossi/feeldee-tracking/wiki/コンテンツ閲覧履歴#コンテンツ閲覧集計
+     */
+    public function test_content_view_summary_update()
+    {
+        // 準備
+        Auth::shouldReceive('id')->andReturn(1);
+        $profie = Profile::create([
+            'nickname' => 'test',
+            'email' => 'test@feeldee.com',
+            'user_id' => 1,
+            'title' => 'Tracking Package',
+        ]);
+        $location = $profie->locations()->create([
+            'title' => 'test',
+            'latitude' => 35.681236,
+            'longitude' => 139.767125,
+            'zoom' => 10,
+        ]);
+
+        // 実行
+        ContentView::regist($location);
+        $this->assertDatabaseCount('content_view_summaries', 1);
+        $this->assertDatabaseHas('content_view_summaries', [
+            'profile_id' => $profie->id,
+            'content_id' => $location->id,
+            'content_type' => $location->type(),
+            'view_count' => 1,
+        ]);
+        ContentView::regist($location);
+
+        // 評価
+        // ンテンツ閲覧履歴登録毎に登録されること
+        $this->assertDatabaseCount('content_view_summaries', 1);
+        // 一致するコンテンツ閲覧集計が存在しない場合は、新規作成されコンテンツ閲覧回数に1がセットされること
+        $this->assertDatabaseHas('content_view_summaries', [
+            'profile_id' => $profie->id,
+            'content_id' => $location->id,
+            'content_type' => $location->type(),
+            'view_count' => 2,
+        ]);
+    }
+
+    /**
      * HTTPフィルタリング
      * 
      * - 任意のURLへのリクエストに対してコンテンツ閲覧履歴を有効にすることができることを確認します。
@@ -123,7 +211,7 @@ class ContentViewHistoryTest extends TestCase
     }
 
     /**
-     * ファサード
+     * ファサードによる登録
      * 
      * - ファサードでコンテンツ閲覧履歴を登録することができることを確認します。
      * - 閲覧対象プロフィールが、閲覧対象のコンテンツのコンテンツ所有者プロフィールであることを確認します。
